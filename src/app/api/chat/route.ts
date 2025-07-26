@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
   await connectDB();
   const { cUserID, userId } = await req.json();
   const session = await cUser(cUserID);
-  let isChat = await Chat.find({
+  const isChat = await Chat.find({
     isGroupChat: false,
     $and: [
       { users: { $elemMatch: { $eq: session?._id } } },
@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
   if (isChat.length > 0) {
     return NextResponse.json(isChat[0]);
   } else {
-    var chatData = {
+    const chatData = {
       chatName: "sender",
       isGroupChat: false,
       users: [session?._id, userId],
@@ -30,6 +30,7 @@ export async function POST(req: NextRequest) {
         _id: createdChat._id,
       }).populate("users", "-password");
       return NextResponse.json(FullChat);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       throw new Error(error?.message);
     }

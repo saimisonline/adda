@@ -1,6 +1,19 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+}
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  --color-primary: #ef4444;
+}
+@plugin "daisyui/theme" {
+  name: "dark";
+  default: true;
+  --color-primary: #ef4444;
+}
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 ::selection {
   background: rgb(215, 87, 8);
@@ -29,4 +42,8 @@ body {
 
 .btn-primary {
   color: white;
+}
+
+.tab-active {
+  background-color: red;
 }

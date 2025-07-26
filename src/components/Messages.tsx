@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import axios from "axios";
@@ -30,6 +31,7 @@ export default function Messages() {
 
   useEffect(() => {
     socket.connect();
+    console.log("socket connected");
     socket.emit("setup", cUser);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cUser._id]);

@@ -8,12 +8,13 @@ export async function POST(req: NextRequest) {
   const { cUserID } = await req.json();
   const session = await cUser(cUserID);
   try {
-    let results = await Chat.find({
+    const results = await Chat.find({
       users: { $elemMatch: { $eq: session?._id } },
     })
       .populate("users", "-password")
       .sort({ updatedAt: -1 });
     return NextResponse.json(results);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     throw new Error(error.message);
   }

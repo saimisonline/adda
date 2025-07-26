@@ -2,7 +2,7 @@ import "./globals.css";
 import { ReactNode } from "react";
 import Navbar from "@/components/Navbar";
 import Providers from "@/components/base/Providers";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import clsx from "clsx";
 import Scripts from "@/components/base/Scripts";
@@ -15,14 +15,17 @@ const Font = Poppins({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  themeColor: "#0f172a",
+};
+
 export const metadata: Metadata = {
   title: "Adda - CWS",
   description: "A Chat App with Next.js and MongoDB",
-  themeColor: "#020817",
   openGraph: {
     title: "Adda - CWS",
     description: "A Chat App with Next.js and MongoDB",
-    url: "https://adda-cws.vercel.app",
+    url: "https://adda.cws.vercel.app",
     siteName: "Adda - CWS",
     type: "website",
   },
@@ -35,7 +38,7 @@ export const metadata: Metadata = {
     },
   },
   manifest: "/webmanifest.json",
-  metadataBase: new URL("https://adda-cws.vercel.app"),
+  metadataBase: new URL("https://adda.cws.vercel.app"),
 };
 
 export default function RootLayout({
@@ -43,6 +46,7 @@ export default function RootLayout({
   session,
 }: {
   children: ReactNode;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   session: any;
 }) {
   return (

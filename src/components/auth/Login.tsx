@@ -37,6 +37,7 @@ const Login = () => {
             router.push(searchParams.get("callbackUrl")!);
           } else {
             setLoading(false);
+            // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
             toast.error(res?.error!, {
               id: "error",
             });

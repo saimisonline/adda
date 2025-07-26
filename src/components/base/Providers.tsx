@@ -6,6 +6,7 @@ import { SessionProvider } from "next-auth/react";
 
 interface Props {
   children: ReactNode;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   session: any;
 }
 

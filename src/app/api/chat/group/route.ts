@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
   await connectDB();
   const { cUserID, users, name } = await req.json();
   const session = await cUser(cUserID);
-  let groupUsers = JSON.parse(users);
+  const groupUsers = JSON.parse(users);
   if (groupUsers.length < 2) {
     NextResponse.json("More than 2 users are required to form a group chat !");
   }
@@ -23,6 +23,7 @@ export async function POST(req: NextRequest) {
       "-password"
     );
     return NextResponse.json(fullGroupChat);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     throw new Error(error.message);
   }

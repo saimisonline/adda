@@ -131,6 +131,7 @@ const Signup = () => {
                   type="file"
                   accept="image/*"
                   onChange={(e) => {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     const file = (e.target as any).files[0];
                     setFieldValue("pic", file);
                   }}

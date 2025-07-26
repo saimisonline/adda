@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
   };
   try {
     let message = await Message.create(newMessage);
-
+    
     message = await message.populate("sender", "name pic");
     message = await message.populate("chat");
     message = await User.populate(message, {
@@ -23,6 +23,7 @@ export async function POST(req: NextRequest) {
       select: "name pic email",
     });
     return NextResponse.json(message);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     throw new Error(error.message);
   }

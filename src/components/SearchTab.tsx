@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { getCUser } from "@/config/store";
@@ -44,6 +45,7 @@ export default function SearchTab() {
       <button
         className="btn btn-primary ml-3"
         onClick={() => {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           //@ts-ignore
           window.searchModal.showModal();
         }}

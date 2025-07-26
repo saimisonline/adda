@@ -1,7 +1,7 @@
 import User from "@/Models/userModel";
 import connectDB from "@/config/db";
 import { NextRequest, NextResponse } from "next/server";
-const bcrypt = require("bcryptjs");
+import bcrypt from "bcryptjs";
 
 export async function POST(req: NextRequest) {
   try {

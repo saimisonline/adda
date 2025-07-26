@@ -59,6 +59,7 @@ export default function Scripts() {
           cUserID: cUser._id,
         });
         const updatedRes = res.data.find(
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (item: any) => item._id === selectedChat._id
         );
         setSelectedChat(updatedRes);

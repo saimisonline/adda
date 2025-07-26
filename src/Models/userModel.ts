@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema(
     },
     pic: {
       type: String,
-      default: "https://adda-cws.vercel.app/img/adda/noUser.jpg",
+      default: "https://cwsaim.vercel.app/favicon.ico",
     },
   },
   { timestamps: true }

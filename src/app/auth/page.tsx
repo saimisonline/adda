@@ -1,14 +1,11 @@
 import Image from "next/image";
 import AuthTab from "@/components/auth/AuthTab";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import { authOptions } from "../api/auth/[...nextauth]/options";
 import { redirect } from "next/navigation";
 
-interface Props {
-  searchParams: { [key: string]: string | string[] | undefined };
-}
-
-export default async function Auth({ searchParams }: Props) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default async function Auth({ searchParams }: any) {
   const session = await getServerSession(authOptions);
   if (session && !searchParams.callbackUrl) {
     redirect("/");

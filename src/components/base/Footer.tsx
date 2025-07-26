@@ -12,7 +12,7 @@ export default function Footer() {
               <CurrentYear />{" "}
               <Link
                 className="hover:underline text-red-500"
-                href="https://codewithsaim.vercel.app"
+                href="https://cwsaim.vercel.app"
                 target="_blank"
               >
                 @CWS

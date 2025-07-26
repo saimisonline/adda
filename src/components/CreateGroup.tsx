@@ -41,7 +41,9 @@ export default function CreateGroup() {
   }, [cUser._id, debouncedInput, selectedUsers]);
 
   async function handleSubmit() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (inputRef.current as any).value = "";
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (nameRef.current as any).value = "";
     setSelectedUsers([]);
     if (!name || !selectedUsers.length)
@@ -58,6 +60,7 @@ export default function CreateGroup() {
         const res = await axios.post("/api/chat/group", {
           cUserID: cUser._id,
           name,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           users: JSON.stringify(Array.from(selectedUsers, (i: any) => i._id)),
         });
         setSelectedChat(res.data);
@@ -71,6 +74,7 @@ export default function CreateGroup() {
       <button
         className="btn btn-primary text-sm"
         onClick={() => {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           //@ts-ignore
           window.createGroupModal.showModal();
         }}
@@ -104,6 +108,7 @@ export default function CreateGroup() {
           <div>
             <div className="flex gap-3 overflow-x-scroll">
               {selectedUsers.length > 0 &&
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 selectedUsers.map((item: any) => (
                   <span
                     className="bg-red-500 rounded-lg px-3 flex h-8 items-center justify-center"
@@ -115,6 +120,7 @@ export default function CreateGroup() {
                       className="ml-3"
                       onClick={() => {
                         setSelectedUsers(
+                          // eslint-disable-next-line @typescript-eslint/no-explicit-any
                           selectedUsers.filter((i: any) => i._id !== item._id)
                         );
                       }}
@@ -125,6 +131,7 @@ export default function CreateGroup() {
                 ))}
             </div>
             {users.length > 0 &&
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               users.map((item: any) => (
                 <button
                   type="button"
@@ -145,8 +152,10 @@ export default function CreateGroup() {
             <button
               className="btn btn-primary"
               onClick={() => {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 (inputRef.current as any).value = "";
                 setSelectedUsers([]);
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 (nameRef.current as any).value = "";
                 setSelectedUsers([]);
               }}

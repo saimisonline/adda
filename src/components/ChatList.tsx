@@ -33,6 +33,7 @@ export default function ChatList() {
       <div className="w-full h-full bg-slate-100 rounded-3xl dark:bg-slate-600 p-5 overflow-y-scroll">
         <div className="w-full">
           {users.length > 0 ? (
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             users.map((item: any) => (
               <button
                 key={item._id}
