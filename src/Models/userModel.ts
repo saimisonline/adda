@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema(
     },
     pic: {
       type: String,
-      default: "https://cwsaim.vercel.app/favicon.ico",
+      default: process.env.ORIGIN + "/favicon.ico",
     },
   },
   { timestamps: true }

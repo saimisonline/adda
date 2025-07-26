@@ -18,6 +18,8 @@ import { Message } from "@/types/adda";
 
 const socket = io(process.env.NEXT_PUBLIC_SOCKET as string, {
   autoConnect: false,
+  port: 8080,
+  secure: true,
 });
 
 export default function Messages() {
@@ -31,13 +33,14 @@ export default function Messages() {
 
   useEffect(() => {
     socket.connect();
-    console.log("socket connected");
     socket.emit("setup", cUser);
+    console.log("socket connected");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cUser._id]);
 
   useEffect(() => {
     socket.on("message recieved", (newMessageRecieved) => {
+      console.log("message recieved", newMessageRecieved);
       if (selectedChat._id === newMessageRecieved.chat._id) {
         setMessages((prev: Message[]) => [...prev, newMessageRecieved]);
       }

@@ -26,16 +26,16 @@ const Signup = () => {
         onSubmit={async (values) => {
           setLoading(true);
           if (values.pic) {
-            const data = new FormData();
-            data.append("file", values.pic);
-            data.append("upload_preset", "CodeWithSaim");
-            data.append("cloud_name", "codewithsaim");
-            data.append("folder", "Users");
-            const img = await axios.post(
-              "https://api.cloudinary.com/v1_1/codewithsaim/image/upload",
-              data
-            );
-            setPic(img.data.url.toString());
+            // const data = new FormData();
+            // data.append("file", values.pic);
+            // data.append("upload_preset", "CodeWithSaim");
+            // data.append("cloud_name", "codewithsaim");
+            // data.append("folder", "Users");
+            // const img = await axios.post(
+            //   "https://api.cloudinary.com/v1_1/codewithsaim/image/upload",
+            //   data
+            // );
+            // setPic(img.data.url.toString());
           } else {
             setPic("");
           }
@@ -56,7 +56,13 @@ const Signup = () => {
           }
         }}
       >
-        {({ values, handleChange, handleSubmit, errors, setFieldValue }) => (
+        {({
+          values,
+          handleChange,
+          handleSubmit,
+          errors,
+          // setFieldValue
+        }) => (
           <Form onSubmit={handleSubmit} autoComplete="off">
             <div className="flex flex-col gap-3">
               <div>
@@ -123,7 +129,7 @@ const Signup = () => {
                   </div>
                 )}
               </div>
-              <div>
+              {/* <div>
                 <h3>Select Your Profile Picture ( Optional )</h3>
                 <input
                   className="file-input file-input-bordered file-input-primary w-full"
@@ -136,7 +142,7 @@ const Signup = () => {
                     setFieldValue("pic", file);
                   }}
                 />
-              </div>
+              </div> */}
               <button
                 className={"btn btn-primary"}
                 type="submit"
