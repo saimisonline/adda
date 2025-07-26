@@ -18,7 +18,6 @@ import { Message } from "@/types/adda";
 
 const socket = io(process.env.NEXT_PUBLIC_SOCKET as string, {
   autoConnect: false,
-  port: 8080,
   secure: true,
 });
 
