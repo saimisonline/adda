@@ -34,11 +34,10 @@ const Login = () => {
             toast.success("Successfully Logged In !", {
               id: "success",
             });
-            router.push(searchParams.get("callbackUrl")!);
+            router.push(searchParams.get("callbackUrl") as string);
           } else {
             setLoading(false);
-            // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-            toast.error(res?.error!, {
+            toast.error(res?.error || "Login failed. Please try again.", {
               id: "error",
             });
           }

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 "use client";
 
 import { getCUser, getSelectedChat, useRefetch } from "@/config/store";
@@ -15,19 +13,19 @@ import { User } from "@/types/adda";
 export default function GroupModal() {
   const [search, setSearch] = useState("");
   const [name, setName] = useState("");
-  const [users, setUsers] = useState([]);
-  const [filteredUsers, setFilteredUsers] = useState<any>([]);
+  const [users, setUsers] = useState<User[]>([]);
+  const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const { cUser } = getCUser();
   const { selectedChat } = getSelectedChat();
-  const inputRef = useRef(null);
-  const nameRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
   const debouncedInput = useDebounce(search, 1000);
   const { refetch, setRefetch } = useRefetch();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setFilteredUsers(
-      selectedChat.users.filter((item: any) => item._id !== cUser._id)
+      selectedChat.users.filter((item: User) => item._id !== cUser._id)
     );
   }, [cUser._id, selectedChat]);
 
@@ -63,8 +61,8 @@ export default function GroupModal() {
     setRefetch(!refetch);
   }
   async function handleSelfRemove() {
-    (inputRef.current as any).value = "";
-    (nameRef.current as any).value = "";
+    (inputRef.current as HTMLInputElement).value = "";
+    (nameRef.current as HTMLInputElement).value = "";
     await axios.put("/api/chat/groupremove", {
       chatId: selectedChat._id,
       userId: cUser._id,
@@ -73,7 +71,6 @@ export default function GroupModal() {
   }
   async function handleRemove(item: User) {
     if (filteredUsers.length <= 2) {
-      //@ts-ignore
       window.GroupModal.close();
       toast.error("Two Users Are Required For A Group");
     } else {
@@ -90,7 +87,6 @@ export default function GroupModal() {
       <button
         className="btn btn-primary"
         onClick={() => {
-          //@ts-ignore
           window.GroupModal.showModal();
         }}
       >
@@ -127,7 +123,7 @@ export default function GroupModal() {
           <div>
             <div className="flex gap-3 mt-3 overflow-x-scroll">
               {filteredUsers.length > 0 &&
-                filteredUsers.map((item: any) => (
+                filteredUsers.map((item: User) => (
                   <span
                     className="bg-red-500 rounded-lg px-3 flex h-8 items-center justify-center"
                     key={item._id}
@@ -156,7 +152,7 @@ export default function GroupModal() {
               onChange={(e) => setSearch(e.target.value)}
             />
             {users.length > 0 &&
-              users.map((item: any) => (
+              users.map((item:User) => (
                 <button
                   type="button"
                   key={item._id}
@@ -176,8 +172,8 @@ export default function GroupModal() {
             <button
               className="btn btn-primary"
               onClick={() => {
-                (inputRef.current as any).value = "";
-                (nameRef.current as any).value = "";
+                (inputRef.current as HTMLInputElement).value = "";
+                (nameRef.current as HTMLInputElement).value = "";
               }}
             >
               Close

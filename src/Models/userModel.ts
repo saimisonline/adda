@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema(
     },
     pic: {
       type: String,
-      default: process.env.ORIGIN + "/favicon.ico",
+      default: process.env.ORIGIN + "/img/adda/noUser.jpg",
     },
   },
   { timestamps: true }

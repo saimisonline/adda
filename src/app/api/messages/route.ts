@@ -10,8 +10,7 @@ export async function POST(req: NextRequest) {
       .populate("sender", "name pic email")
       .populate("chat");
     return NextResponse.json(messages);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    throw new Error(error.message);
+  } catch (error: Error | unknown) {
+    throw new Error((error as Error).message);
   }
 }

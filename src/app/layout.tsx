@@ -8,6 +8,7 @@ import clsx from "clsx";
 import Scripts from "@/components/base/Scripts";
 import { Toaster } from "react-hot-toast";
 import Footer from "@/components/base/Footer";
+import { Session } from "next-auth";
 
 const Font = Poppins({
   weight: ["500", "600", "800", "900"],
@@ -46,8 +47,7 @@ export default function RootLayout({
   session,
 }: {
   children: ReactNode;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  session: any;
+  session: Session;
 }) {
   return (
     <html

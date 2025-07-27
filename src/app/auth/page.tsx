@@ -4,8 +4,11 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "../api/auth/[...nextauth]/options";
 import { redirect } from "next/navigation";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default async function Auth({ searchParams }: any) {
+export default async function Auth({
+  searchParams,
+}: {
+  searchParams: { callbackUrl: string };
+}) {
   const session = await getServerSession(authOptions);
   if (session && !searchParams.callbackUrl) {
     redirect("/");

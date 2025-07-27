@@ -23,8 +23,7 @@ export async function POST(req: NextRequest) {
       "-password"
     );
     return NextResponse.json(fullGroupChat);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    throw new Error(error.message);
+  } catch (error: Error | unknown) {
+    throw new Error((error as Error).message);
   }
 }

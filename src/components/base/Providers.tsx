@@ -3,11 +3,11 @@
 import { ReactNode } from "react";
 import { ThemeProvider } from "next-themes";
 import { SessionProvider } from "next-auth/react";
+import { Session } from "next-auth";
 
 interface Props {
   children: ReactNode;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  session: any;
+  session: Session | null;
 }
 
 export default function Providers({ children, session }: Props) {

@@ -30,9 +30,8 @@ export async function POST(req: NextRequest) {
         _id: createdChat._id,
       }).populate("users", "-password");
       return NextResponse.json(FullChat);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      throw new Error(error?.message);
+    } catch (error: Error | unknown) {
+      throw new Error((error as Error).message);
     }
   }
 }

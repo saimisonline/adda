@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import axios from "axios";
@@ -26,7 +25,7 @@ export default function Messages() {
   const [messages, setMessages] = useState<Message[]>([]);
   const { cUser } = getCUser();
   const [newMessage, setNewMessage] = useState("");
-  const sendMsgRef = useRef(null);
+  const sendMsgRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
   const [msgLoading, setMsgLoading] = useState(false);
 
@@ -34,13 +33,12 @@ export default function Messages() {
     socket.connect();
     socket.emit("setup", cUser);
     console.log("socket connected");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cUser._id]);
+  }, [cUser]);
 
   useEffect(() => {
     socket.on("message recieved", (newMessageRecieved) => {
       console.log("message recieved", newMessageRecieved);
-      if (selectedChat._id === newMessageRecieved.chat._id) {
+      if (selectedChat?._id === newMessageRecieved.chat._id) {
         setMessages((prev: Message[]) => [...prev, newMessageRecieved]);
       }
     });
@@ -51,30 +49,29 @@ export default function Messages() {
 
   useEffect(() => {
     setMsgLoading(true);
-    if (selectedChat._id) {
+    if (selectedChat?._id) {
       (async () => {
         const res = await axios.post(
-          `/api/messages?chatId=${selectedChat._id}`
+          `/api/messages?chatId=${selectedChat?._id}`
         );
         setMessages(res.data);
       })();
-      socket.emit("join chat", selectedChat._id);
+      socket.emit("join chat", selectedChat?._id);
     } else {
       setMessages([]);
     }
     setMsgLoading(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedChat._id]);
+  }, [selectedChat?._id]);
 
   async function handleSend() {
     setLoading(true);
     const { data } = await axios.post("/api/messages/sendmsg", {
       content: newMessage,
-      chatId: selectedChat,
+      chatId: selectedChat?._id,
       cUserID: cUser._id,
     });
     setNewMessage("");
-    (sendMsgRef.current as any).value = "";
+    (sendMsgRef.current as HTMLInputElement).value = "";
     setMessages((perv: Message[]) => [...perv, data]);
     socket.emit("new message", data);
     setLoading(false);
@@ -102,7 +99,7 @@ export default function Messages() {
         ) : (
           <ScrollableFeed>
             {messages &&
-              messages.map((item: any, i: number) => (
+              messages.map((item: Message, i: number) => (
                 <div
                   key={i}
                   className={clsx(

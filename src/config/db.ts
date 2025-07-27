@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import mongoose from "mongoose";
 const MONGO_URI = process.env.MONGO_URI as string;
 

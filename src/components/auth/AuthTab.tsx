@@ -2,9 +2,9 @@
 
 import Login from "@/components/auth/Login";
 import Signup from "@/components/auth/Signup";
-// import { signIn } from "next-auth/react";
 import clsx from "clsx";
 import { useState } from "react";
+// import { signIn } from "next-auth/react";
 // import { FaGithub, FaGoogle } from "react-icons/fa";
 
 const AuthTab = () => {

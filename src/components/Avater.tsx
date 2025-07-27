@@ -1,8 +1,14 @@
 import clsx from "clsx";
 import Image from "next/image";
+import { User } from "@/types/adda";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function Avater({ user, isSelected, chatName }: any) {
+interface AvaterProps {
+  user: User;
+  isSelected?: boolean;
+  chatName?: string | false;
+}
+
+export default function Avater({ user, isSelected, chatName }: AvaterProps) {
   return (
     <>
       <div

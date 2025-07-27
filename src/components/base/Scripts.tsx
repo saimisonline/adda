@@ -1,10 +1,10 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { useEffect } from "react";
 import { useTheme } from "next-themes";
 import { useSession } from "next-auth/react";
 import { getCUser, getSelectedChat, useRefetch } from "@/config/store";
+import { SelectedChat } from "@/types/adda";
 import axios from "axios";
 
 export default function Scripts() {
@@ -50,7 +50,7 @@ export default function Scripts() {
       };
       setCUser(response);
     }
-  }, [session]);
+  }, [session, setCUser]);
 
   useEffect(() => {
     if (selectedChat._id) {
@@ -59,13 +59,12 @@ export default function Scripts() {
           cUserID: cUser._id,
         });
         const updatedRes = res.data.find(
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (item: any) => item._id === selectedChat._id
+          (item: SelectedChat) => item._id === selectedChat._id
         );
         setSelectedChat(updatedRes);
       })();
     }
-  }, [refetch]);
+  }, [refetch, selectedChat._id, setSelectedChat, cUser._id]);
 
   return null;
 }

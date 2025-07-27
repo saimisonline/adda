@@ -1,7 +1,6 @@
 import Link from "next/link";
-import React from "react";
 
-const NotFound = () => {
+export default function NotFound() {
   return (
     <>
       <div className="w-full h-screen flex justify-center items-center flex-col gap-5">
@@ -14,6 +13,4 @@ const NotFound = () => {
       </div>
     </>
   );
-};
-
-export default NotFound;
+}

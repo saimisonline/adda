@@ -14,8 +14,7 @@ export async function POST(req: NextRequest) {
       .populate("users", "-password")
       .sort({ updatedAt: -1 });
     return NextResponse.json(results);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    throw new Error(error.message);
+  } catch (error: Error | unknown) {
+    throw new Error((error as Error).message);
   }
 }

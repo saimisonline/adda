@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 export interface User {
   name: string;
   email: string;

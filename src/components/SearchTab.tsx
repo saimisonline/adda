@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { getCUser } from "@/config/store";
@@ -12,10 +11,10 @@ import { User } from "@/types/adda";
 
 export default function SearchTab() {
   const [search, setSearch] = useState("");
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<User[]>([]);
   const { cUser } = getCUser();
   const { setSelectedChat } = getSelectedChat();
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const debouncedInput = useDebounce(search, 1000);
 
   useEffect(() => {
@@ -37,7 +36,9 @@ export default function SearchTab() {
     });
     setSelectedChat(res.data);
     setSearch("");
-    (inputRef.current as any).value = "";
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
   }
 
   return (
@@ -68,7 +69,7 @@ export default function SearchTab() {
           />
           <div>
             {users.length > 0 &&
-              users.map((item: any) => (
+              users.map((item: User) => (
                 <button
                   key={item._id}
                   className="w-full modal-action mt-0"
@@ -83,7 +84,11 @@ export default function SearchTab() {
           <div className="modal-action">
             <button
               className="btn btn-primary"
-              onClick={() => ((inputRef.current as any).value = "")}
+              onClick={() => {
+                if (inputRef.current) {
+                  inputRef.current.value = "";
+                }
+              }}
             >
               Close
             </button>

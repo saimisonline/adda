@@ -6,10 +6,11 @@ import { getCUser, getSelectedChat, useRefetch } from "@/config/store";
 import axios from "axios";
 import CreateGroup from "./CreateGroup";
 import { getSender } from "@/config/addaLogic";
+import { SelectedChat } from "@/types/adda";
 
 export default function ChatList() {
   const { cUser } = getCUser();
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<SelectedChat[]>([]);
   const { selectedChat, setSelectedChat } = getSelectedChat();
   const { refetch } = useRefetch();
 
@@ -33,8 +34,7 @@ export default function ChatList() {
       <div className="w-full h-full bg-slate-100 rounded-3xl dark:bg-slate-600 p-5 overflow-y-scroll">
         <div className="w-full">
           {users.length > 0 ? (
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            users.map((item: any) => (
+            users.map((item: SelectedChat) => (
               <button
                 key={item._id}
                 type="button"

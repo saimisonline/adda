@@ -13,12 +13,12 @@ import { User } from "@/types/adda";
 export default function CreateGroup() {
   const [search, setSearch] = useState("");
   const [name, setName] = useState("");
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
   const { cUser } = getCUser();
   const { setSelectedChat } = getSelectedChat();
-  const inputRef = useRef(null);
-  const nameRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
   const debouncedInput = useDebounce(search, 1000);
 
   useEffect(() => {
@@ -41,10 +41,8 @@ export default function CreateGroup() {
   }, [cUser._id, debouncedInput, selectedUsers]);
 
   async function handleSubmit() {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (inputRef.current as any).value = "";
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (nameRef.current as any).value = "";
+    (inputRef.current as HTMLInputElement).value = "";
+    (nameRef.current as HTMLInputElement).value = "";
     setSelectedUsers([]);
     if (!name || !selectedUsers.length)
       toast.error("Fill All The Fields !", {
@@ -60,8 +58,7 @@ export default function CreateGroup() {
         const res = await axios.post("/api/chat/group", {
           cUserID: cUser._id,
           name,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          users: JSON.stringify(Array.from(selectedUsers, (i: any) => i._id)),
+          users: JSON.stringify(Array.from(selectedUsers, (i: User) => i._id)),
         });
         setSelectedChat(res.data);
         setSelectedUsers([]);
@@ -74,8 +71,6 @@ export default function CreateGroup() {
       <button
         className="btn btn-primary text-sm"
         onClick={() => {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          //@ts-ignore
           window.createGroupModal.showModal();
         }}
       >
@@ -108,8 +103,7 @@ export default function CreateGroup() {
           <div>
             <div className="flex gap-3 overflow-x-scroll">
               {selectedUsers.length > 0 &&
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                selectedUsers.map((item: any) => (
+                selectedUsers.map((item: User) => (
                   <span
                     className="bg-red-500 rounded-lg px-3 flex h-8 items-center justify-center"
                     key={item._id}
@@ -120,8 +114,7 @@ export default function CreateGroup() {
                       className="ml-3"
                       onClick={() => {
                         setSelectedUsers(
-                          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                          selectedUsers.filter((i: any) => i._id !== item._id)
+                          selectedUsers.filter((i: User) => i._id !== item._id)
                         );
                       }}
                     >
@@ -131,8 +124,7 @@ export default function CreateGroup() {
                 ))}
             </div>
             {users.length > 0 &&
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              users.map((item: any) => (
+              users.map((item: User) => (
                 <button
                   type="button"
                   key={item._id}
@@ -152,11 +144,9 @@ export default function CreateGroup() {
             <button
               className="btn btn-primary"
               onClick={() => {
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                (inputRef.current as any).value = "";
+                (inputRef.current as HTMLInputElement).value = "";
                 setSelectedUsers([]);
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                (nameRef.current as any).value = "";
+                (nameRef.current as HTMLInputElement).value = "";
                 setSelectedUsers([]);
               }}
             >
